@@ -19,6 +19,13 @@ dependencies {
     }
     implementation 'org.springframework.boot:spring-boot-starter-jetty'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-core
+    implementation 'io.swagger.core.v3:swagger-core:2.2.0'
+    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
+
+
+
 }
 
 
