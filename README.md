@@ -9,10 +9,12 @@ Spring boot App in jdk18, jetty11, mongodb5, gradle7
 > DB:27017 
 > backend:8080
 
+#### 3. Enter project directory: ####
+>$ cd Overmobile
 
-#### 3. Deploy project with Docker (should be installed): ####
+#### 4. Deploy project with Docker (should be installed): ####
 > $ docker-compose up --build
 
-#### 3. Check app: ####
+#### 5. Check app: ####
 > $ Webview only CRUD methods: http://localhost:8080/swagger
 > or you can use Postman http://localhost:8080/add =)
