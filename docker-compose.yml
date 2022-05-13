@@ -10,23 +10,28 @@ services:
       - 8080:8080
     depends_on:
       - mongodb
-    env_file:
-      - .env
-    environment:
-      - SPRING_DATASOURCE_URL=${DB_URL}
-      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
-      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+
+
 
 
   mongodb:
-    image: mongo:5.0.8
-    container_name: mongo
-    env_file:
-      - .env
+    image : mongo:5.0.8
+    container_name: mongodb
+    hostname: mongodb
+    restart: on-failure
     environment:
-      MONGO_ROOT_USERNAME: ${DB_USERNAME}
-      MONGO_ROOT_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - ${DB_PORT:-27017}:27017
+      - PUID=1000
+      - PGID=1000
+      - MONGO_INITDB_DATABASE=overmobile
+      - MONGO_REPLICA_SET_NAME=rs0
     volumes:
-      - ./DB:/var/lib/mongodb/data
+      - mongodb5_data:/data/db
+    ports:
+      - 27017:27017
+    healthcheck:
+      test: test $$(echo "rs.initiate().ok || rs.status().ok" | mongo --quiet) -eq 1
+      interval: 10s
+      start_period: 30s
+    command: "--replSet rs0"
+volumes:
+  mongodb5_data:
