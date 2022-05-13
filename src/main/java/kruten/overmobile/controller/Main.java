@@ -2,7 +2,7 @@ package kruten.overmobile.controller;
 
 
 import kruten.overmobile.entity.User;
-import kruten.overmobile.error.ResponseHandler;
+import kruten.overmobile.response.ResponseHandler;
 import kruten.overmobile.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
