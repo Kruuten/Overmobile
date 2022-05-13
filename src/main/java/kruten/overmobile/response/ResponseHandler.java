@@ -8,9 +8,9 @@ import java.util.Map;
 
 public class ResponseHandler {
     public static ResponseEntity<Object> generateResponse(int number) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Integer> map = new HashMap<>();
         map.put("status", number);
 
-        return new ResponseEntity<Object>(map, HttpStatus.OK);
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 }
