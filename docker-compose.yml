@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  spring:
+    image: 'overmobile-test-v0.0.1'
+    build:
+      context:  .
+    container_name: backend
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongodb
+    env_file:
+      - .env
+    environment:
+      - SPRING_DATASOURCE_URL=${DB_URL}
+      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+
+
+  mongodb:
+    image: mongo:5.0.8
+    container_name: mongo
+    env_file:
+      - .env
+    environment:
+      MONGO_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - ${DB_PORT:-27017}:27017
+    volumes:
+      - ./DB:/var/lib/mongodb/data
