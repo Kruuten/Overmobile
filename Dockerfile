@@ -1,4 +1,4 @@
-FROM gradle:7.4-jdk-alpine
+FROM gradle:7.4.2-jdk18-alpine
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 RUN gradle build
