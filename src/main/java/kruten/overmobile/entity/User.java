@@ -3,14 +3,16 @@ package kruten.overmobile.entity;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 
 public class User {
     @Id
     @NotBlank
     private String id;
-
+    @Positive(message = "User id could not be < 0")
     private long userId;
+    @Positive(message = "Enter value > 0")
     private double sum;
 
     public String getId() {
