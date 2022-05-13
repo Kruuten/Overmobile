@@ -1,4 +1,4 @@
-package kruten.overmobile.error;
+package kruten.overmobile.response;
 
 import kruten.overmobile.exception.AlreadyExistException;
 import org.springframework.http.HttpStatus;
@@ -15,6 +15,6 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Message> handleAnyException() {
         Message message = new Message();
         message.setStatus(1);
-        return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(message, HttpStatus.UNPROCESSABLE_ENTITY);
     }
     }
