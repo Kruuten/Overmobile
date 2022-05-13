@@ -1,4 +1,4 @@
-package kruten.overmobile.error;
+package kruten.overmobile.response;
 
 public class Message {
     private int status;
