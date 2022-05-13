@@ -1,4 +1,4 @@
-package kruten.overmobile.error;
+package kruten.overmobile.response;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
