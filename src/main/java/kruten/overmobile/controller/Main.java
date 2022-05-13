@@ -17,12 +17,7 @@ public class Main {
     private UserService userService;
 
     @PostMapping("/add")
-    public ResponseEntity<User> postUser(@Valid @RequestBody User user) {
-        try{
+    public ResponseEntity postUser(@Valid @RequestBody User user) {
             return new ResponseEntity<>(userService.postUser(user), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.valueOf(0));
-        }
     }
 }
