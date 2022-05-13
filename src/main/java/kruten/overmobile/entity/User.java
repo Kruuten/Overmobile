@@ -2,9 +2,12 @@ package kruten.overmobile.entity;
 
 import org.springframework.data.annotation.Id;
 
+import javax.validation.constraints.NotBlank;
+
 
 public class User {
     @Id
+    @NotBlank
     private String id;
 
     private long userId;
