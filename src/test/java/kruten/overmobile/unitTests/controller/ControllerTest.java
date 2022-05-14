@@ -1,6 +1,7 @@
-package kruten.overmobile.controller;
+package kruten.overmobile.unitTests.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import kruten.overmobile.controller.UserController;
 import kruten.overmobile.entity.User;
 import kruten.overmobile.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
