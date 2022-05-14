@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.MongoTransactionManager;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
+import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
 @EnableMongoRepositories(basePackages = "kruten.overmobile.repository")
@@ -18,6 +20,16 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
     @Bean
     MongoTransactionManager transactionManager(MongoDatabaseFactory dbFactory) {
         return new MongoTransactionManager(dbFactory);
+    }
+
+    @Bean
+    public ValidatingMongoEventListener validatingMongoEventListener() {
+        return new ValidatingMongoEventListener(validator());
+    }
+
+    @Bean
+    public LocalValidatorFactoryBean validator() {
+        return new LocalValidatorFactoryBean();
     }
 
     @Override

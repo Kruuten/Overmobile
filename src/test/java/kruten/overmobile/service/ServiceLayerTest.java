@@ -1,7 +1,7 @@
 package kruten.overmobile.service;
 
 import kruten.overmobile.entity.User;
-import kruten.overmobile.exception.AlreadyExistException;
+import kruten.overmobile.exception.AlreadyExistsException;
 import kruten.overmobile.repository.UserRep;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +26,7 @@ public class ServiceLayerTest {
 
     private User user2;
 
+
     @BeforeEach
     public void setUp() {
         user1 = new User();
@@ -41,13 +42,13 @@ public class ServiceLayerTest {
 
     @Test
     void postCustomer() {
-        Mockito.when(userRep.save(user1)).thenReturn(user1);
-        Assertions.assertEquals(user1, userService.postUser(user1));
+        Mockito.when(userRep.existsById(user1.getId())).thenReturn(false);
+        Assertions.assertDoesNotThrow(() -> userService.postUser(user1));
     }
 
     @Test
     void postCustomerThrowExceptionTest() {
-        Mockito.when(userRep.findById(user2.getId())).thenReturn(user2);
-        Assertions.assertThrows(AlreadyExistException.class, () -> userService.postUser(user2));
+        Mockito.when(userRep.existsById(user2.getId())).thenReturn(true);
+        Assertions.assertThrows(AlreadyExistsException.class, () -> userService.postUser(user2));
     }
 }

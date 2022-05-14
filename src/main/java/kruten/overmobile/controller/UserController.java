@@ -12,12 +12,12 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/")
-public class Main {
+public class UserController {
     @Autowired
     private UserService userService;
 
     @PostMapping("/add")
-    public ResponseEntity postUser(@Valid @RequestBody User user) {
+    public ResponseEntity postUser(@RequestBody @Valid User user) {
         userService.postUser(user);
         return ResponseHandler.generateResponse(0);
     }
