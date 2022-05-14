@@ -12,7 +12,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/")
-public class Main {
+public class UserController {
     @Autowired
     private UserService userService;
 
