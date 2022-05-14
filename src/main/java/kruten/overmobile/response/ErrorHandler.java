@@ -1,6 +1,6 @@
 package kruten.overmobile.response;
 
-import kruten.overmobile.exception.AlreadyExistException;
+import kruten.overmobile.exception.AlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 @RestController
 public class ErrorHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(AlreadyExistException.class)
+    @ExceptionHandler(AlreadyExistsException.class)
     public ResponseEntity<Message> handleAnyException() {
         Message message = new Message();
         message.setStatus(1);
