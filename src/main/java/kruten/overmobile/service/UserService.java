@@ -7,18 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Service
 public class UserService {
     @Autowired
     private UserRep userRep;
 
+    /**
+     * Можно сделать проще, но решил сделать с отловом ошибок =)
+     **/
     @Transactional
-    public User postUser(User user) {
-        User checkUser = userRep.findById(user.getId());
-        if (checkUser == null)
-            checkUser = userRep.save(user);
-        else throw new AlreadyExistsException("Already Exists");
-        return checkUser;
+    public void postUser(User user) {
+        boolean userExists = userRep.existsById(user.getId());
+        if (!userExists) {
+            userRep.save(user);
+            return;
+        }
+        throw new AlreadyExistsException("Already Exists");
 
     }
+
 }
