@@ -13,7 +13,7 @@ Spring boot App in jdk18, jetty11, mongodb5, gradle7
 >$ cd Overmobile
 
 #### 4. Deploy project with Docker (should be installed): ####
-> $ docker-compose up --build
+> $ docker-compose up -d
 
 #### 5. Check app: ####
 > $ Webview only CRUD methods: http://localhost:8080/swagger
