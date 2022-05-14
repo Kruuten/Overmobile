@@ -1,5 +1,5 @@
 # Overmobile test task
-Spring boot App in jdk18, jetty11, mongodb5, gradle7
+Spring boot App on jdk18, jetty11, mongodb5, gradle7
 
 ### Instrucion to install: ###
 #### 1. Clone project. From command line: ####
