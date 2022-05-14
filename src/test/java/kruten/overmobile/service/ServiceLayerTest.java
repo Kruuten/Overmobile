@@ -42,13 +42,13 @@ public class ServiceLayerTest {
 
     @Test
     void postCustomer() {
-        Mockito.when(userRep.save(user1)).thenReturn(user1);
-        Assertions.assertEquals(user1, userService.postUser(user1));
+        Mockito.when(userRep.existsById(user1.getId())).thenReturn(false);
+        Assertions.assertDoesNotThrow(() -> userService.postUser(user1));
     }
 
     @Test
     void postCustomerThrowExceptionTest() {
-        Mockito.when(userRep.findById(user2.getId())).thenReturn(user2);
+        Mockito.when(userRep.existsById(user2.getId())).thenReturn(true);
         Assertions.assertThrows(AlreadyExistsException.class, () -> userService.postUser(user2));
     }
 }
