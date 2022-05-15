@@ -1,13 +1,11 @@
 package kruten.overmobile.controller;
 
-
 import kruten.overmobile.entity.User;
 import kruten.overmobile.response.ResponseHandler;
 import kruten.overmobile.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 
 @RestController
@@ -17,7 +15,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/add")
-    public ResponseEntity postUser(@RequestBody @Valid User user) {
+    public ResponseEntity<Object> postUser(@RequestBody @Valid User user) {
         userService.postUser(user);
         return ResponseHandler.generateResponse(0);
     }

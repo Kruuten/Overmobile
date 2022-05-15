@@ -1,62 +1,67 @@
 package kruten.overmobile.integrationTests.serviceTests;
 
+import kruten.overmobile.OvermobileApplication;
 import kruten.overmobile.entity.User;
+import kruten.overmobile.exception.AlreadyExistsException;
 import kruten.overmobile.repository.UserRep;
 import kruten.overmobile.service.UserService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.ResultHandler;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
-@SpringBootTest
+
+
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = OvermobileApplication.class)
 @AutoConfigureMockMvc
+@TestPropertySource(
+        locations = "classpath:application.properties")
 public class ServiceIntegrationTest {
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private UserRep userRep;
 
-    private User user1;
+    @Autowired
+    private UserService userService;
 
-    private User user2;
+    @Test
+    @Transactional
+    public void postUserIntegrationTest() {
+        User user1 = new User();
+        user1.setId("loan");
+        user1.setUserId(1);
+        user1.setSum(100);
 
+        userService.postUser(user1);
 
-    @BeforeEach
-    public void setUp() {
-        user1 = new User();
-        user1.setId("debit");
-        user1.setUserId(10);
-        user1.setSum(1000);
+        User byId = userRep.findById(user1.getId());
+        Assertions.assertEquals(byId.getId(), user1.getId());
+        Assertions.assertEquals(byId.getUserId(), user1.getUserId());
+        Assertions.assertEquals(byId.getSum(), user1.getSum());
 
-        user2 = new User();
-        user2.setId("debit");
+    }
+
+    @Test
+    @Transactional
+    public void postUserThrowExceptionIntegrationTest() {
+        User user1 = new User();
+        user1.setId("loan");
+        user1.setUserId(1);
+        user1.setSum(100);
+
+        User user2 = new User();
+        user2.setId("loan");
         user2.setUserId(2);
         user2.setSum(500);
+
+        userService.postUser(user1);
+        Assertions.assertThrows(AlreadyExistsException.class, () -> userService.postUser(user2));
     }
-
-    @Test
-    public void postUserIntegrationTest() throws Exception {
-        userRep.save(user1);
-        ResultActions response = mockMvc.perform(MockMvcRequestBuilders.post("/add"));
-        response.andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test
-    public void postUserThrowExceptionIntegrationTest() throws Exception {
-        userRep.save(user2);
-        ResultActions response = mockMvc.perform(MockMvcRequestBuilders.post("/add"));
-    }
-
-
 }

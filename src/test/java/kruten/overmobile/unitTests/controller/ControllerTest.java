@@ -22,7 +22,6 @@ public class ControllerTest {
     @MockBean
     UserService userService;
     private User user1;
-    private User user2;
 
     @BeforeEach
     public void setUp() {
@@ -30,11 +29,6 @@ public class ControllerTest {
         user1.setId("credit");
         user1.setUserId(1);
         user1.setSum(100);
-
-        user2 = new User();
-        user2.setId("credit");
-        user2.setUserId(2);
-        user2.setSum(150);
     }
 
     @Test

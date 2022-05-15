@@ -6,7 +6,7 @@ plugins {
 
 group = 'kruten'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+
 
 repositories {
     mavenCentral()
@@ -19,22 +19,21 @@ dependencies {
     }
     implementation 'org.springframework.boot:spring-boot-starter-jetty'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'junit:junit:4.13.1'
+    implementation 'junit:junit:4.13.2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    // https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-core
     implementation 'io.swagger.core.v3:swagger-core:2.2.0'
-    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
-    // https://mvnrepository.com/artifact/com.h2database/h2
-    testImplementation 'com.h2database:h2:2.1.212'
-
-
 
 
 
 }
 
 
-tasks.named('test') {
+test{
     useJUnitPlatform()
+    exclude("**/*IntegrationTest*")
+}
+task("integrationTest", type: Test, dependsOn: test) {
+    group = "verification"
+    include("**/*IntegrationTest*")
 }
